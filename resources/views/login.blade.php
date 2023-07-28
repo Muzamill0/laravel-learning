@@ -18,9 +18,8 @@
             <div class="card-body">
                 @if (session()->has('error'))
                 <p class="text-danger">{{ session()->get('error') }}</p>
-                @else
-
                 @endif
+
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
                     <div class="mb-3">

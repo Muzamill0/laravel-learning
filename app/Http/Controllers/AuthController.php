@@ -21,7 +21,7 @@ class AuthController extends Controller
         $credential = $request->except('_token');
         // dd($credential);
         if(Auth::attempt($credential)){
-            dd(Auth::user());
+            dd(Auth::user()->name);
         }else{
             return back()->with(['error' => 'invalid Credentials']);
         }
