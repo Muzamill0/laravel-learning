@@ -32,6 +32,7 @@
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Image</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,6 +42,10 @@
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->description }}</td>
                                 <td><img src="{{ asset('uploads/'.$product->image) }}" width="100"  alt=""></td>
+                                <td>
+                                    <a href="{{ route('product.edit',$product) }}" class="btn btn-primary">Edit</a>
+                                    <a href="{{ route('product.delete', $product) }}" class="btn btn-danger">Delete</a>
+                                </td>
                             </tr>
 
                             @endforeach

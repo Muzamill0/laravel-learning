@@ -23,5 +23,8 @@ Route::post('/', [AuthController::class, 'login']);
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
 Route::post('/product/create', [ProductController::class, 'store']);
+Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+Route::post('/product/{product}/edit', [ProductController::class, 'update']);
+Route::get('/product/{product}/delete', [ProductController::class, 'destroy'])->name('product.delete');
 
 

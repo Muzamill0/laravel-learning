@@ -74,7 +74,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        // dd($product);
+        $data = [
+            'product' => $product
+        ];
+        return view('products.edit', $data);
     }
 
     /**
@@ -86,7 +90,33 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+        ]);
+
+        $file = $request['image'];
+
+        if ($file) {
+            $file_name = 'product' . time() . '.' . $file->getClientOriginalExtension();
+        } else {
+            $file_name = $product->image;
+        }
+
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $file_name
+        ];
+
+        $product_updated = Product::find($product->id)->update($data);
+        if($product_updated){
+            $file->move(public_path('uploads'), $file_name);
+            return back()->with('success', 'Product has been updated');
+        } else{
+            return back()->with('error', 'Product has failed to update');
+        }
     }
 
     /**
@@ -97,6 +127,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product_deleted = Product::find($product->id)->delete();
+        if($product_deleted){
+            return back()->with('success', 'Product has been delete');
+        } else{
+            return back()->with('error', 'Product has failed to delete');
+        }
     }
 }
